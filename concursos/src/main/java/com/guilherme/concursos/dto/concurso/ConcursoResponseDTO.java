@@ -4,5 +4,6 @@ public record ConcursoResponseDTO(
             String id,
             String nome,
             String banca,
-            Integer ano) {
+            Integer ano,
+            String link) {
 }

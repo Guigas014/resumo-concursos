@@ -23,32 +23,22 @@ public class ConcursoService {
 
       public ConcursoIdDTO createConcursos(ConcursoRequestDTO concursoDTO) {
 
-            String concurso = scrappingData.getConcursosData();
-            System.out.println(concurso);
+            List<List<String>> dataConcursos = scrappingData.getConcursosData();
 
-            // // Web Scrapping
-            // WebDriver edgeDriver = new EdgeDriver();
-            // edgeDriver.get("https://www.pciconcursos.com.br/concursos/centrooeste/");
+            // Executar repetidas vezes, conforme o dataConcursos.size() - em um stream()
+            Concurso concurso1 = new Concurso();
+            List<String> concurso = dataConcursos.get(0);
+            concurso1.setNome(concurso.get(0));
+            concurso1.setAno(Integer.parseInt(concurso.get(1)));
 
-            // edgeDriver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
-
-            // List<WebElement> list = edgeDriver.findElements(By.className("ca"));
-
-            // Integer length = list.size();
-
-            // WebElement value = list.get(0);
-            // String item = value.getText();
-
-            // System.out.println(item);
-
-            // // Fecha o navegador.
-            // edgeDriver.quit();
+            // System.out.println(concurso1.getNome());
 
             Concurso newConcurso = new Concurso();
 
             newConcurso.setNome(concursoDTO.nome());
             newConcurso.setBanca(concursoDTO.banca());
             newConcurso.setAno(concursoDTO.ano());
+            newConcurso.setLink(concursoDTO.link());
 
             this.concursoRepository.save(newConcurso);
 
@@ -60,7 +50,7 @@ public class ConcursoService {
 
             List<ConcursoResponseDTO> listaConcursos = concursos.stream().map(concurso -> {
                   return new ConcursoResponseDTO(concurso.getId(), concurso.getNome(), concurso.getBanca(),
-                              concurso.getAno());
+                              concurso.getAno(), concurso.getLink());
             }).toList();
 
             return new ConcursosListResponseDTO(listaConcursos);

@@ -29,4 +29,6 @@ public class Concurso {
       private String banca;
 
       private Integer ano;
+
+      private String link;
 }

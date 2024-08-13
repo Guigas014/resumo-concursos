@@ -1,6 +1,7 @@
 package com.guilherme.concursos.util;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScrappingData {
 
-      public String getConcursosData() {
+      public List<List<String>> getConcursosData() {
             // Web Scrapping
             WebDriver edgeDriver = new EdgeDriver();
             edgeDriver.get("https://www.pciconcursos.com.br/concursos/centrooeste/");
@@ -21,16 +22,53 @@ public class ScrappingData {
 
             List<WebElement> list = edgeDriver.findElements(By.className("ca"));
 
-            // Integer length = list.size();
+            // Pega o tamanho do array
+            Integer length = list.size();
 
-            WebElement value = list.get(0);
-            String item = value.getText();
+            // Cria uma list de concursos
+            List<List<String>> concursos = new ArrayList<>();
 
-            // System.out.println(item);
+            for (int i = 0; i < length; i++) {
+                  WebElement value = list.get(i);
+                  String item = value.getText();
+
+                  if (item.contains("DF")) {
+                        String[] itemsConcurso = item.split("\n");
+
+                        String nomeConcurso = itemsConcurso[0];
+
+                        WebElement linkConcurso = value.findElement(By.tagName("a"));
+                        String link = linkConcurso.getAttribute("href");
+
+                        String data;
+
+                        if (itemsConcurso.length > 6) {
+                              data = itemsConcurso[6];
+                              // System.out.println("Data teste: " + data2);
+                        } else {
+                              data = itemsConcurso[5];
+                        }
+
+                        String ano = data.substring(6, 10);
+
+                        // System.out.println("Concurso:");
+                        // System.out.println("Nome: " + nomeConcurso);
+                        // System.out.println("Inscrição até: " + ano);
+                        // System.out.println("lINK: " + link + "\n");
+
+                        List<String> dataConcurso = new ArrayList<>();
+                        dataConcurso.add(nomeConcurso);
+                        dataConcurso.add(ano);
+
+                        concursos.add(dataConcurso);
+                        // System.out.println(concursos);
+
+                  }
+            }
 
             // Fecha o navegador.
             edgeDriver.quit();
 
-            return item;
+            return concursos;
       }
 }
