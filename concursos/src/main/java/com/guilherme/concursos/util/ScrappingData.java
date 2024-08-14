@@ -59,6 +59,7 @@ public class ScrappingData {
                         List<String> dataConcurso = new ArrayList<>();
                         dataConcurso.add(nomeConcurso);
                         dataConcurso.add(ano);
+                        dataConcurso.add(link);
 
                         concursos.add(dataConcurso);
                         // System.out.println(concursos);

@@ -24,10 +24,11 @@ public class ConcursoController {
       private final ConcursoService concursoService;
 
       @PostMapping("/")
-      public ResponseEntity<ConcursoIdDTO> createConcurso(@RequestBody ConcursoRequestDTO body) {
-            ConcursoIdDTO concursoId = concursoService.createConcursos(body);
+      public ResponseEntity<String> createConcurso(@RequestBody ConcursoRequestDTO body) {
+            // ConcursoIdDTO concursoId = concursoService.createConcursos(body);
+            concursoService.createConcursos(body);
 
-            return ResponseEntity.ok().body(concursoId);
+            return ResponseEntity.ok().body("OK");
       }
 
       @GetMapping("/")

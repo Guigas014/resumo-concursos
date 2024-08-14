@@ -1,11 +1,9 @@
 package com.guilherme.concursos.services;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.guilherme.concursos.domain.concurso.Concurso;
-import com.guilherme.concursos.dto.concurso.ConcursoIdDTO;
 import com.guilherme.concursos.dto.concurso.ConcursoRequestDTO;
 import com.guilherme.concursos.dto.concurso.ConcursoResponseDTO;
 import com.guilherme.concursos.dto.concurso.ConcursosListResponseDTO;
@@ -21,28 +19,34 @@ public class ConcursoService {
       private final ConcursoRepository concursoRepository;
       private final ScrappingData scrappingData;
 
-      public ConcursoIdDTO createConcursos(ConcursoRequestDTO concursoDTO) {
+      public void createConcursos(ConcursoRequestDTO concursoDTO) {
 
             List<List<String>> dataConcursos = scrappingData.getConcursosData();
 
-            // Executar repetidas vezes, conforme o dataConcursos.size() - em um stream()
-            Concurso concurso1 = new Concurso();
-            List<String> concurso = dataConcursos.get(0);
-            concurso1.setNome(concurso.get(0));
-            concurso1.setAno(Integer.parseInt(concurso.get(1)));
+            dataConcursos.forEach(item -> {
+                  Concurso concurso2 = new Concurso();
+                  concurso2.setNome(item.get(0));
+                  concurso2.setAno(Integer.parseInt(item.get(1)));
+                  concurso2.setLink(item.get(2));
 
-            // System.out.println(concurso1.getNome());
+                  // System.out.println("Concurso:\n" +
+                  // "Nome: " + concurso2.getNome() + "\n" +
+                  // "Ano: " + concurso2.getAno() + "\n" +
+                  // "Link:" + concurso2.getLink() + "\n");
 
-            Concurso newConcurso = new Concurso();
+                  this.concursoRepository.save(concurso2);
+            });
 
-            newConcurso.setNome(concursoDTO.nome());
-            newConcurso.setBanca(concursoDTO.banca());
-            newConcurso.setAno(concursoDTO.ano());
-            newConcurso.setLink(concursoDTO.link());
+            // Concurso newConcurso = new Concurso();
 
-            this.concursoRepository.save(newConcurso);
+            // newConcurso.setNome(concursoDTO.nome());
+            // newConcurso.setBanca(concursoDTO.banca());
+            // newConcurso.setAno(concursoDTO.ano());
+            // newConcurso.setLink(concursoDTO.link());
 
-            return new ConcursoIdDTO(newConcurso.getId());
+            // this.concursoRepository.save(newConcurso);
+
+            // return new ConcursoIdDTO(newConcurso.getId());
       }
 
       public ConcursosListResponseDTO getConcursos() {
