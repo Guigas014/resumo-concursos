@@ -1,6 +1,7 @@
 package com.guilherme.concursos.services;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.guilherme.concursos.domain.concurso.Concurso;
@@ -19,23 +20,34 @@ public class ConcursoService {
       private final ConcursoRepository concursoRepository;
       private final ScrappingData scrappingData;
 
-      public void createConcursos(ConcursoRequestDTO concursoDTO) {
+      public List<String> createConcursos(ConcursoRequestDTO concursoDTO) {
 
             List<List<String>> dataConcursos = scrappingData.getConcursosData();
 
-            dataConcursos.forEach(item -> {
-                  Concurso concurso2 = new Concurso();
-                  concurso2.setNome(item.get(0));
-                  concurso2.setAno(Integer.parseInt(item.get(1)));
-                  concurso2.setLink(item.get(2));
+            // ISSO AQUI É O MESMO CÓDIGO COMENTADO ABAIXO. MAS COM A FUNÇÃO STREAM
+            List<String> idList = dataConcursos.stream().map(item -> {
+                  String id = this.concursoRepository
+                              .save(new Concurso(null, item.get(0), null, Integer.parseInt(item.get(1)), item.get(2)))
+                              .getId();
 
-                  // System.out.println("Concurso:\n" +
-                  // "Nome: " + concurso2.getNome() + "\n" +
-                  // "Ano: " + concurso2.getAno() + "\n" +
-                  // "Link:" + concurso2.getLink() + "\n");
+                  return id;
+            }).toList();
 
-                  this.concursoRepository.save(concurso2);
-            });
+            return idList;
+
+            // dataConcursos.forEach(item -> {
+            // Concurso concurso2 = new Concurso();
+            // concurso2.setNome(item.get(0));
+            // concurso2.setAno(Integer.parseInt(item.get(1)));
+            // concurso2.setLink(item.get(2));
+
+            // // System.out.println("Concurso:\n" +
+            // // "Nome: " + concurso2.getNome() + "\n" +
+            // // "Ano: " + concurso2.getAno() + "\n" +
+            // // "Link:" + concurso2.getLink() + "\n");
+
+            // this.concursoRepository.save(concurso2);
+            // });
 
             // Concurso newConcurso = new Concurso();
 

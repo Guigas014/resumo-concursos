@@ -44,17 +44,11 @@ public class ScrappingData {
 
                         if (itemsConcurso.length > 6) {
                               data = itemsConcurso[6];
-                              // System.out.println("Data teste: " + data2);
                         } else {
                               data = itemsConcurso[5];
                         }
 
                         String ano = data.substring(6, 10);
-
-                        // System.out.println("Concurso:");
-                        // System.out.println("Nome: " + nomeConcurso);
-                        // System.out.println("Inscrição até: " + ano);
-                        // System.out.println("lINK: " + link + "\n");
 
                         List<String> dataConcurso = new ArrayList<>();
                         dataConcurso.add(nomeConcurso);
@@ -62,7 +56,6 @@ public class ScrappingData {
                         dataConcurso.add(link);
 
                         concursos.add(dataConcurso);
-                        // System.out.println(concursos);
 
                   }
             }
