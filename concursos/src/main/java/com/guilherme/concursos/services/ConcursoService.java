@@ -24,7 +24,8 @@ public class ConcursoService {
 
             List<List<String>> dataConcursos = scrappingData.getConcursosData();
 
-            // ISSO AQUI É O MESMO CÓDIGO COMENTADO ABAIXO. MAS COM A FUNÇÃO STREAM
+            // ISSO AQUI É O MESMO CÓDIGO COMENTADO ABAIXO E QUE ESTÁ DENTRO DO FOREACH.
+            // MAS COM A FUNÇÃO STREAM.
             List<String> idList = dataConcursos.stream().map(item -> {
                   String id = this.concursoRepository
                               .save(new Concurso(null, item.get(0), null, Integer.parseInt(item.get(1)), item.get(2)))
