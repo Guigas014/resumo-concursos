@@ -22,6 +22,11 @@ public class ConcursoService {
 
       public List<String> createConcursos(ConcursoRequestDTO concursoDTO) {
 
+            var concurosExistentes = this.concursoRepository.findAll();
+            if (concurosExistentes.stream().count() > 0) {
+                  this.concursoRepository.deleteAll();
+            }
+
             List<List<String>> dataConcursos = scrappingData.getConcursosData();
 
             // ISSO AQUI É O MESMO CÓDIGO COMENTADO ABAIXO E QUE ESTÁ DENTRO DO FOREACH.
