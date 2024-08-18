@@ -10,59 +10,67 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.springframework.stereotype.Component;
 
+import com.guilherme.concursos.domain.concurso.exceptions.WebDriverException;
+
 @Component
 public class ScrappingData {
 
       public List<List<String>> getConcursosData() {
             // Web Scrapping
             WebDriver edgeDriver = new EdgeDriver();
-            edgeDriver.get("https://www.pciconcursos.com.br/concursos/centrooeste/");
 
-            edgeDriver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
+            try {
+                  edgeDriver.get("https://ww.pciconcursos.com.br/concursos/centrooeste/");
 
-            List<WebElement> list = edgeDriver.findElements(By.className("ca"));
+                  edgeDriver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 
-            // Pega o tamanho do array
-            Integer length = list.size();
+                  List<WebElement> list = edgeDriver.findElements(By.className("ca"));
 
-            // Cria uma list de concursos
-            List<List<String>> concursos = new ArrayList<>();
+                  // Pega o tamanho do array
+                  Integer length = list.size();
 
-            for (int i = 0; i < length; i++) {
-                  WebElement value = list.get(i);
-                  String item = value.getText();
+                  // Cria uma list de concursos
+                  List<List<String>> concursos = new ArrayList<>();
 
-                  if (item.contains("DF")) {
-                        String[] itemsConcurso = item.split("\n");
+                  for (int i = 0; i < length; i++) {
+                        WebElement value = list.get(i);
+                        String item = value.getText();
 
-                        String nomeConcurso = itemsConcurso[0];
+                        if (item.contains("DF")) {
+                              String[] itemsConcurso = item.split("\n");
 
-                        WebElement linkConcurso = value.findElement(By.tagName("a"));
-                        String link = linkConcurso.getAttribute("href");
+                              String nomeConcurso = itemsConcurso[0];
 
-                        String data;
+                              WebElement linkConcurso = value.findElement(By.tagName("a"));
+                              String link = linkConcurso.getAttribute("href");
 
-                        if (itemsConcurso.length > 6) {
-                              data = itemsConcurso[6];
-                        } else {
-                              data = itemsConcurso[5];
+                              String data;
+
+                              if (itemsConcurso.length > 6) {
+                                    data = itemsConcurso[6];
+                              } else {
+                                    data = itemsConcurso[5];
+                              }
+
+                              String ano = data.substring(6, 10);
+
+                              List<String> dataConcurso = new ArrayList<>();
+                              dataConcurso.add(nomeConcurso);
+                              dataConcurso.add(ano);
+                              dataConcurso.add(link);
+
+                              concursos.add(dataConcurso);
+
                         }
-
-                        String ano = data.substring(6, 10);
-
-                        List<String> dataConcurso = new ArrayList<>();
-                        dataConcurso.add(nomeConcurso);
-                        dataConcurso.add(ano);
-                        dataConcurso.add(link);
-
-                        concursos.add(dataConcurso);
-
                   }
+
+                  return concursos;
+
+            } catch (Exception e) {
+                  throw new WebDriverException("Dados nao encontrados pelo scrapping");
+            } finally {
+                  // Fecha o navegador.
+                  edgeDriver.quit();
             }
-
-            // Fecha o navegador.
-            edgeDriver.quit();
-
-            return concursos;
       }
 }
