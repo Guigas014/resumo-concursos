@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.guilherme.concursos.domain.concurso.Concurso;
-import com.guilherme.concursos.domain.concurso.exceptions.WebDriverException;
 import com.guilherme.concursos.dto.concurso.ConcursoRequestDTO;
 import com.guilherme.concursos.dto.concurso.ConcursoResponseDTO;
 import com.guilherme.concursos.dto.concurso.ConcursosListResponseDTO;
@@ -31,11 +30,10 @@ public class ConcursoService {
 
             List<List<String>> dataConcursos = scrappingData.getConcursosData();
 
+            // EXEMPLO DE TRATAMENTO DE ERRO.
             // if (dataConcursos == null) {
             // throw new WebDriverException("Dados não encontrados!!");
             // }
-
-            // O TRATAMENTO DE ERRO DO WEBSCRAPPING DEVE SER AQUI
 
             // ISSO AQUI É O MESMO CÓDIGO COMENTADO ABAIXO E QUE ESTÁ DENTRO DO FOREACH.
             // MAS COM A FUNÇÃO STREAM.

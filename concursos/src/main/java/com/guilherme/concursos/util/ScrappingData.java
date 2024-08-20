@@ -20,7 +20,7 @@ public class ScrappingData {
             WebDriver edgeDriver = new EdgeDriver();
 
             try {
-                  edgeDriver.get("https://ww.pciconcursos.com.br/concursos/centrooeste/");
+                  edgeDriver.get("https://www.pciconcursos.com.br/concursos/centrooeste/");
 
                   edgeDriver.manage().timeouts().implicitlyWait(Duration.ofMillis(500));
 
