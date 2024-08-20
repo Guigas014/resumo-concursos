@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.guilherme.concursos.domain.concurso.Concurso;
-import com.guilherme.concursos.dto.concurso.ConcursoRequestDTO;
 import com.guilherme.concursos.dto.concurso.ConcursoResponseDTO;
 import com.guilherme.concursos.dto.concurso.ConcursosListResponseDTO;
 import com.guilherme.concursos.repositories.ConcursoRepository;
@@ -20,7 +19,8 @@ public class ConcursoService {
       private final ConcursoRepository concursoRepository;
       private final ScrappingData scrappingData;
 
-      public List<String> createConcursos(ConcursoRequestDTO concursoDTO) {
+      // public List<String> createConcursos(ConcursoRequestDTO concursoDTO) {
+      public List<String> createConcursos() {
 
             // Testa se existe dados da tabela concurso, se positivo apaga todos.
             var concurosExistentes = this.concursoRepository.findAll();
