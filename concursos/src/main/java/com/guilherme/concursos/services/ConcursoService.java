@@ -39,7 +39,8 @@ public class ConcursoService {
             // MAS COM A FUNÇÃO STREAM.
             List<String> idList = dataConcursos.stream().map(item -> {
                   String id = this.concursoRepository
-                              .save(new Concurso(null, item.get(0), null, Integer.parseInt(item.get(1)), item.get(2)))
+                              .save(new Concurso(null, item.get(0), null, Integer.parseInt(item.get(1)), null,
+                                          item.get(3), item.get(2)))
                               .getId();
 
                   return id;
@@ -78,7 +79,8 @@ public class ConcursoService {
 
             List<ConcursoResponseDTO> listaConcursos = concursos.stream().map(concurso -> {
                   return new ConcursoResponseDTO(concurso.getId(), concurso.getNome(), concurso.getBanca(),
-                              concurso.getAno(), concurso.getLink());
+                              concurso.getAno(), concurso.getInicioInscricao(), concurso.getFimInscricao(),
+                              concurso.getLink());
             }).toList();
 
             return new ConcursosListResponseDTO(listaConcursos);

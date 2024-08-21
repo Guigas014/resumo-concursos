@@ -34,6 +34,8 @@ public class Cargo {
 
       private Integer quantidadeVagas;
 
+      private Double taxaInscricao;
+
       private Double salario;
 
       @ManyToOne

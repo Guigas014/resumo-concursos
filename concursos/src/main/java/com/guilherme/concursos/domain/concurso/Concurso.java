@@ -30,5 +30,9 @@ public class Concurso {
 
       private Integer ano;
 
+      private String inicioInscricao;
+
+      private String fimInscricao;
+
       private String link;
 }

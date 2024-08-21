@@ -58,6 +58,7 @@ public class ScrappingData {
                               dataConcurso.add(nomeConcurso);
                               dataConcurso.add(ano);
                               dataConcurso.add(link);
+                              dataConcurso.add(data);
 
                               concursos.add(dataConcurso);
 

@@ -47,6 +47,7 @@ public class CargoService {
             cargo.setCadastroReserva(newCargo.getCadastroReserva());
             cargo.setQuantidadeVagas(newCargo.getQuantidadeVagas());
             cargo.setSalario(newCargo.getSalario());
+            cargo.setTaxaInscricao(newCargo.getTaxaInscricao());
             cargo.setConcurso(concurso.get());
 
             this.cargoRepository.save(cargo);
