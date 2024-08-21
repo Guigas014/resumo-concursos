@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.guilherme.concursos.domain.cargo.Cargo;
+import com.guilherme.concursos.dto.cargo.CargoAvaliacaoRequestDTO;
 import com.guilherme.concursos.services.CargoService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,8 @@ public class CargoController {
       }
 
       @PostMapping("/{concursoId}")
-      public ResponseEntity<String> createCargo(@RequestBody Cargo body, @PathVariable String concursoId) {
+      public ResponseEntity<String> createCargo(@RequestBody CargoAvaliacaoRequestDTO body,
+                  @PathVariable String concursoId) {
             String id = cargoService.createCargo(body, concursoId);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(id);

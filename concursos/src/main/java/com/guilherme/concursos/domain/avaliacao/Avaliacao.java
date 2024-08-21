@@ -1,6 +1,6 @@
-package com.guilherme.concursos.domain.cargo;
+package com.guilherme.concursos.domain.avaliacao;
 
-import com.guilherme.concursos.domain.concurso.Concurso;
+import com.guilherme.concursos.domain.cargo.Cargo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,31 +15,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "cargos")
+@Table(name = "avaliacaos")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cargo {
+public class Avaliacao {
 
       @Id
       @GeneratedValue(strategy = GenerationType.UUID)
       private String id;
 
-      private String nome;
+      private String tipo;
 
-      private String nivel;
+      private String carater;
 
-      private Boolean cadastroReserva;
+      private Integer pontuacao;
 
-      private Integer quantidadeVagas;
+      private String dataProva;
 
-      private Double taxaInscricao;
+      private String duracao;
 
-      private Double salario;
+      private Integer quantidadeQuestoes;
 
       @ManyToOne
-      @JoinColumn(name = "concurso_id", nullable = false)
-      private Concurso concurso;
-
+      @JoinColumn(name = "cargo_id", nullable = false)
+      private Cargo cargo;
 }
