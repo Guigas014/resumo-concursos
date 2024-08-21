@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.guilherme.concursos.domain.cargo.Cargo;
-import com.guilherme.concursos.domain.cargo.exceptions.CargoException;
 import com.guilherme.concursos.domain.concurso.Concurso;
+import com.guilherme.concursos.domain.concurso.exceptions.ConcursoNotFoundException;
 import com.guilherme.concursos.repositories.CargoRepository;
 import com.guilherme.concursos.repositories.ConcursoRepository;
 
@@ -37,7 +37,7 @@ public class CargoService {
 
                   // return message;
 
-                  throw new CargoException("Concurso não encontrado!");
+                  throw new ConcursoNotFoundException("Concurso não encontrado!");
             }
 
             Cargo cargo = new Cargo();

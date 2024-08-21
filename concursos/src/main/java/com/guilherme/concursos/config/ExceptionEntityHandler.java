@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.guilherme.concursos.domain.cargo.exceptions.CargoException;
+import com.guilherme.concursos.domain.concurso.exceptions.ConcursoNotFoundException;
 import com.guilherme.concursos.domain.concurso.exceptions.WebDriverException;
 
 @ControllerAdvice
@@ -16,8 +16,8 @@ public class ExceptionEntityHandler {
             return ResponseEntity.notFound().build();
       }
 
-      @ExceptionHandler(CargoException.class)
-      public ResponseEntity<String> handleConcursoNotFound(CargoException e) {
+      @ExceptionHandler(ConcursoNotFoundException.class)
+      public ResponseEntity<String> handleConcursoNotFound(ConcursoNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
       }
 }
