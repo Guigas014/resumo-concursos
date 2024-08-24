@@ -1,14 +1,19 @@
 package com.guilherme.concursos.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.guilherme.concursos.domain.cargo.Cargo;
+import com.guilherme.concursos.domain.cargo.exceptions.CargoNotFoundException;
+import com.guilherme.concursos.domain.avaliacao.Avaliacao;
 import com.guilherme.concursos.domain.concurso.Concurso;
-import com.guilherme.concursos.dto.concurso.ConcursoResponseDTO;
-import com.guilherme.concursos.dto.concurso.ConcursosListResponseDTO;
+import com.guilherme.concursos.domain.concurso.exceptions.ConcursoNotFoundException;
+import com.guilherme.concursos.repositories.AvaliacaoRepository;
+import com.guilherme.concursos.repositories.CargoRepository;
 import com.guilherme.concursos.repositories.ConcursoRepository;
-import com.guilherme.concursos.util.ScrappingData;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,73 +21,67 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ConcursoService {
 
+      private final CargoRepository cargoRepository;
       private final ConcursoRepository concursoRepository;
-      private final ScrappingData scrappingData;
+      private final AvaliacaoRepository avaliacaoRepository;
 
-      // public List<String> createConcursos(ConcursoRequestDTO concursoDTO) {
-      public List<String> createConcursos() {
+      public List<Cargo> getDadosConcurso() {
+            List<Cargo> cargos = this.cargoRepository.findAll();
 
-            // Testa se existe dados da tabela concurso, se positivo apaga todos.
-            var concurosExistentes = this.concursoRepository.findAll();
-            if (concurosExistentes.stream().count() > 0) {
-                  this.concursoRepository.deleteAll();
+            return cargos;
+      }
+
+      @Transactional
+      public String createCargo(Cargo dados, String concursoId) {
+            Optional<Concurso> concurso = concursoRepository.findById(concursoId);
+
+            if (!concurso.isPresent()) {
+                  // System.out.println("Concurso não encontrado!");
+                  // String message = "Concurso não encontrado!";
+
+                  // return message;
+
+                  throw new ConcursoNotFoundException("Concurso não encontrado!");
             }
 
-            List<List<String>> dataConcursos = scrappingData.getConcursosData();
+            // System.out.println(dados);
 
-            // EXEMPLO DE TRATAMENTO DE ERRO.
-            // if (dataConcursos == null) {
-            // throw new WebDriverException("Dados não encontrados!!");
-            // }
+            Cargo cargo = new Cargo();
 
-            // ISSO AQUI É O MESMO CÓDIGO COMENTADO ABAIXO E QUE ESTÁ DENTRO DO FOREACH.
-            // MAS COM A FUNÇÃO STREAM.
-            List<String> idList = dataConcursos.stream().map(item -> {
-                  String id = this.concursoRepository
-                              .save(new Concurso(null, item.get(0), null, Integer.parseInt(item.get(1)), null,
-                                          item.get(3), item.get(2)))
-                              .getId();
+            cargo.setNome(dados.getNome());
+            cargo.setNivel(dados.getNivel());
+            cargo.setCadastroReserva(dados.getCadastroReserva());
+            cargo.setQuantidadeVagas(dados.getQuantidadeVagas());
+            cargo.setSalario(dados.getSalario());
+            cargo.setTaxaInscricao(dados.getTaxaInscricao());
+            cargo.setConcurso(concurso.get());
 
-                  return id;
-            }).toList();
+            this.cargoRepository.save(cargo);
 
-            return idList;
-
-            // dataConcursos.forEach(item -> {
-            // Concurso concurso2 = new Concurso();
-            // concurso2.setNome(item.get(0));
-            // concurso2.setAno(Integer.parseInt(item.get(1)));
-            // concurso2.setLink(item.get(2));
-
-            // // System.out.println("Concurso:\n" +
-            // // "Nome: " + concurso2.getNome() + "\n" +
-            // // "Ano: " + concurso2.getAno() + "\n" +
-            // // "Link:" + concurso2.getLink() + "\n");
-
-            // this.concursoRepository.save(concurso2);
-            // });
-
-            // Concurso newConcurso = new Concurso();
-
-            // newConcurso.setNome(concursoDTO.nome());
-            // newConcurso.setBanca(concursoDTO.banca());
-            // newConcurso.setAno(concursoDTO.ano());
-            // newConcurso.setLink(concursoDTO.link());
-
-            // this.concursoRepository.save(newConcurso);
-
-            // return new ConcursoIdDTO(newConcurso.getId());
+            return cargo.getId();
       }
 
-      public ConcursosListResponseDTO getConcursos() {
-            List<Concurso> concursos = this.concursoRepository.findAll();
+      @Transactional
+      public String createAvaliacao(Avaliacao dados, String cargoId) {
+            Optional<Cargo> cargo = cargoRepository.findById(cargoId);
 
-            List<ConcursoResponseDTO> listaConcursos = concursos.stream().map(concurso -> {
-                  return new ConcursoResponseDTO(concurso.getId(), concurso.getNome(), concurso.getBanca(),
-                              concurso.getAno(), concurso.getInicioInscricao(), concurso.getFimInscricao(),
-                              concurso.getLink());
-            }).toList();
+            if (!cargo.isPresent()) {
+                  throw new CargoNotFoundException("Cargo não encontrado!");
+            }
 
-            return new ConcursosListResponseDTO(listaConcursos);
+            Avaliacao avaliacao = new Avaliacao();
+
+            avaliacao.setTipo(dados.getTipo());
+            avaliacao.setCarater(dados.getCarater());
+            avaliacao.setPontuacao(dados.getPontuacao());
+            avaliacao.setDataProva(dados.getDataProva());
+            avaliacao.setDuracao(dados.getDuracao());
+            avaliacao.setQuantidadeQuestoes(dados.getQuantidadeQuestoes());
+            avaliacao.setCargo(cargo.get());
+
+            this.avaliacaoRepository.save(avaliacao);
+
+            return avaliacao.getId();
       }
+
 }
