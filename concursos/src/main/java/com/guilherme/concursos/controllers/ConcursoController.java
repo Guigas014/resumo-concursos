@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.guilherme.concursos.domain.avaliacao.Avaliacao;
 import com.guilherme.concursos.domain.cargo.Cargo;
 import com.guilherme.concursos.domain.conteudo.Conteudo;
+import com.guilherme.concursos.dto.avaliacao.AvaliacaoResponseDTO;
+import com.guilherme.concursos.dto.cargo.CargoResponseDTO;
 import com.guilherme.concursos.services.ConcursoService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,8 +28,8 @@ public class ConcursoController {
       private final ConcursoService concursoService;
 
       @GetMapping("/{concursoId}/cargos")
-      public ResponseEntity<List<Cargo>> getCargos(@PathVariable String concursoId) {
-            List<Cargo> cargos = concursoService.getCargos(concursoId);
+      public ResponseEntity<List<CargoResponseDTO>> getCargos(@PathVariable String concursoId) {
+            List<CargoResponseDTO> cargos = concursoService.getCargos(concursoId);
 
             return ResponseEntity.ok().body(cargos);
       }
@@ -56,8 +58,8 @@ public class ConcursoController {
       }
 
       @GetMapping("cargo/{cargoId}/avaliacoes")
-      public ResponseEntity<List<Avaliacao>> getAvaliacoesAndConteudos(@PathVariable String cargoId) {
-            List<Avaliacao> avaliacoes = concursoService.getAvaliacoes(cargoId);
+      public ResponseEntity<List<AvaliacaoResponseDTO>> getAvaliacoesAndConteudos(@PathVariable String cargoId) {
+            List<AvaliacaoResponseDTO> avaliacoes = concursoService.getAvaliacoes(cargoId);
 
             return ResponseEntity.ok().body(avaliacoes);
       }

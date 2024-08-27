@@ -13,6 +13,11 @@ import com.guilherme.concursos.domain.avaliacao.exceptions.AvaliacaoNotFoundExce
 import com.guilherme.concursos.domain.concurso.Concurso;
 import com.guilherme.concursos.domain.concurso.exceptions.ConcursoNotFoundException;
 import com.guilherme.concursos.domain.conteudo.Conteudo;
+import com.guilherme.concursos.domain.conteudo.exceptions.ConteudoNotFoundException;
+import com.guilherme.concursos.dto.avaliacao.AvaliacaoDetailsDTO;
+import com.guilherme.concursos.dto.avaliacao.AvaliacaoResponseDTO;
+import com.guilherme.concursos.dto.cargo.CargoResponseDTO;
+import com.guilherme.concursos.dto.conteudo.ConteudoResponseDTO;
 import com.guilherme.concursos.repositories.AvaliacaoRepository;
 import com.guilherme.concursos.repositories.CargoRepository;
 import com.guilherme.concursos.repositories.ConcursoRepository;
@@ -29,7 +34,7 @@ public class ConcursoService {
       private final AvaliacaoRepository avaliacaoRepository;
       private final ConteudoRepository conteudoRepository;
 
-      public List<Cargo> getCargos(String concursoId) {
+      public List<CargoResponseDTO> getCargos(String concursoId) {
             Optional<Concurso> concurso = concursoRepository.findById(concursoId);
 
             if (!concurso.isPresent()) {
@@ -38,7 +43,15 @@ public class ConcursoService {
 
             List<Cargo> cargos = this.cargoRepository.findByConcursoId(concursoId);
 
-            return cargos;
+            List<CargoResponseDTO> cargosDTO = cargos.stream().map(item -> {
+                  CargoResponseDTO cargoDTO = new CargoResponseDTO(item.getId(), item.getNome(), item.getNivel(),
+                              item.getCadastroReserva(), item.getQuantidadeVagas(), item.getTaxaInscricao(),
+                              item.getSalario(), concurso.get().getNome(), concurso.get().getFimInscricao());
+
+                  return cargoDTO;
+            }).toList();
+
+            return cargosDTO;
       }
 
       @Transactional
@@ -114,6 +127,7 @@ public class ConcursoService {
             conteudo.setDireito_administrativo(dados.isDireito_administrativo());
             conteudo.setDireito_constitucional(dados.isDireito_constitucional());
             conteudo.setEspecifico(dados.isEspecifico());
+
             conteudo.setOutros(dados.getOutros());
             conteudo.setAvaliacao(avaliacao.get());
 
@@ -122,7 +136,8 @@ public class ConcursoService {
             return conteudo.getId();
       }
 
-      public List<Avaliacao> getAvaliacoes(String cargoId) {
+      @Transactional
+      public List<AvaliacaoResponseDTO> getAvaliacoes(String cargoId) {
             Optional<Cargo> cargo = cargoRepository.findById(cargoId);
 
             if (!cargo.isPresent()) {
@@ -131,7 +146,42 @@ public class ConcursoService {
 
             List<Avaliacao> avaliacoes = avaliacaoRepository.findByCargoId(cargoId);
 
-            return avaliacoes;
+            List<AvaliacaoResponseDTO> avaliacoesDTO = avaliacoes.stream().map(item -> {
+                  ConteudoResponseDTO conteudo = this.getConteudo(item.getId());
+
+                  AvaliacaoResponseDTO avaliacaoDTO = new AvaliacaoResponseDTO(item.getCargo().getConcurso().getNome(),
+                              item.getCargo().getNome(),
+                              new AvaliacaoDetailsDTO(item.getId(), item.getTipo(), item.getCarater(),
+                                          item.getPontuacao(), item.getDataProva(), item.getDuracao(),
+                                          item.getQuantidadeQuestoes()),
+                              conteudo);
+
+                  return avaliacaoDTO;
+            }).toList();
+
+            return avaliacoesDTO;
+      }
+
+      public ConteudoResponseDTO getConteudo(String avaliacaoId) {
+            Optional<Conteudo> conteudo = this.conteudoRepository.findByAvaliacaoId(avaliacaoId);
+
+            // System.out.println(avaliacaoId);
+
+            if (!conteudo.isPresent()) {
+                  throw new ConteudoNotFoundException("Conteúdo não encontrado!");
+                  // System.out.println("Conteudo nao encontrado");
+            }
+
+            List<ConteudoResponseDTO> conteudoDTO = conteudo.stream().map(item -> {
+                  ConteudoResponseDTO newConteudo = new ConteudoResponseDTO(item.isPortugues(), item.isMatematica(),
+                              item.isInformatica(), item.isRaciocinio_logico(), item.isIngles(), item.isEtica(),
+                              item.isAtualidades(), item.isDireito_administrativo(), item.isDireito_constitucional(),
+                              item.isEspecifico(), item.getOutros());
+
+                  return newConteudo;
+            }).toList();
+
+            return conteudoDTO.get(0);
       }
 
 }

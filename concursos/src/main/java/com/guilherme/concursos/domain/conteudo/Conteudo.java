@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,21 +28,21 @@ public class Conteudo {
       @GeneratedValue(strategy = GenerationType.UUID)
       private String id;
 
-      private boolean portugues = false;
-      private boolean matematica = false;
-      private boolean informatica = false;
-      private boolean raciocinio_logico = false;
-      private boolean ingles = false;
-      private boolean etica = false;
-      private boolean atualidades = false;
-      private boolean direito_administrativo = false;
-      private boolean direito_constitucional = false;
-      private boolean especifico = false;
+      private boolean portugues;
+      private boolean matematica;
+      private boolean informatica;
+      private boolean raciocinio_logico;
+      private boolean ingles;
+      private boolean etica;
+      private boolean atualidades;
+      private boolean direito_administrativo;
+      private boolean direito_constitucional;
+      private boolean especifico;
 
       @Column(nullable = true)
       private String outros;
 
-      @ManyToOne
+      @OneToOne
       @JoinColumn(name = "avaliacao_id", nullable = false)
       private Avaliacao avaliacao;
 }
