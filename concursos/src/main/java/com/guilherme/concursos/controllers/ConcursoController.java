@@ -25,10 +25,9 @@ public class ConcursoController {
 
       private final ConcursoService concursoService;
 
-      // Arrumar esse método. São todos os cargos de apenas um concurso.
-      @GetMapping("/cargos")
-      public ResponseEntity<List<Cargo>> getCargos() {
-            List<Cargo> cargos = concursoService.getCargos();
+      @GetMapping("/{concursoId}/cargos")
+      public ResponseEntity<List<Cargo>> getCargos(@PathVariable String concursoId) {
+            List<Cargo> cargos = concursoService.getCargos(concursoId);
 
             return ResponseEntity.ok().body(cargos);
       }

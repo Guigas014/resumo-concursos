@@ -29,8 +29,14 @@ public class ConcursoService {
       private final AvaliacaoRepository avaliacaoRepository;
       private final ConteudoRepository conteudoRepository;
 
-      public List<Cargo> getCargos() {
-            List<Cargo> cargos = this.cargoRepository.findAll();
+      public List<Cargo> getCargos(String concursoId) {
+            Optional<Concurso> concurso = concursoRepository.findById(concursoId);
+
+            if (!concurso.isPresent()) {
+                  throw new ConcursoNotFoundException("Concurso não encontrado!");
+            }
+
+            List<Cargo> cargos = this.cargoRepository.findByConcursoId(concursoId);
 
             return cargos;
       }
