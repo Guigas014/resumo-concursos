@@ -9,11 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.guilherme.concursos.domain.cargo.Cargo;
 import com.guilherme.concursos.domain.cargo.exceptions.CargoNotFoundException;
 import com.guilherme.concursos.domain.avaliacao.Avaliacao;
+import com.guilherme.concursos.domain.avaliacao.exceptions.AvaliacaoNotFoundException;
 import com.guilherme.concursos.domain.concurso.Concurso;
 import com.guilherme.concursos.domain.concurso.exceptions.ConcursoNotFoundException;
+import com.guilherme.concursos.domain.conteudo.Conteudo;
 import com.guilherme.concursos.repositories.AvaliacaoRepository;
 import com.guilherme.concursos.repositories.CargoRepository;
 import com.guilherme.concursos.repositories.ConcursoRepository;
+import com.guilherme.concursos.repositories.ConteudoRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,8 +27,9 @@ public class ConcursoService {
       private final CargoRepository cargoRepository;
       private final ConcursoRepository concursoRepository;
       private final AvaliacaoRepository avaliacaoRepository;
+      private final ConteudoRepository conteudoRepository;
 
-      public List<Cargo> getDadosConcurso() {
+      public List<Cargo> getCargos() {
             List<Cargo> cargos = this.cargoRepository.findAll();
 
             return cargos;
@@ -82,6 +86,46 @@ public class ConcursoService {
             this.avaliacaoRepository.save(avaliacao);
 
             return avaliacao.getId();
+      }
+
+      @Transactional
+      public String createConteudo(Conteudo dados, String avaliacaoId) {
+            Optional<Avaliacao> avaliacao = avaliacaoRepository.findById(avaliacaoId);
+
+            if (!avaliacao.isPresent()) {
+                  throw new AvaliacaoNotFoundException("Avaliação não encontrado!");
+            }
+
+            Conteudo conteudo = new Conteudo();
+
+            conteudo.setPortugues(dados.isPortugues());
+            conteudo.setMatematica(dados.isMatematica());
+            conteudo.setInformatica(dados.isInformatica());
+            conteudo.setRaciocinio_logico(dados.isRaciocinio_logico());
+            conteudo.setIngles(dados.isIngles());
+            conteudo.setEtica(dados.isEtica());
+            conteudo.setAtualidades(dados.isAtualidades());
+            conteudo.setDireito_administrativo(dados.isDireito_administrativo());
+            conteudo.setDireito_constitucional(dados.isDireito_constitucional());
+            conteudo.setEspecifico(dados.isEspecifico());
+            conteudo.setOutros(dados.getOutros());
+            conteudo.setAvaliacao(avaliacao.get());
+
+            this.conteudoRepository.save(conteudo);
+
+            return conteudo.getId();
+      }
+
+      public List<Avaliacao> getAvaliacoes(String cargoId) {
+            Optional<Cargo> cargo = cargoRepository.findById(cargoId);
+
+            if (!cargo.isPresent()) {
+                  throw new CargoNotFoundException("Cargo não encontrado!");
+            }
+
+            List<Avaliacao> avaliacoes = avaliacaoRepository.findByCargoId(cargoId);
+
+            return avaliacoes;
       }
 
 }

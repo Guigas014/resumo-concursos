@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.guilherme.concursos.domain.avaliacao.Avaliacao;
 import com.guilherme.concursos.domain.cargo.Cargo;
+import com.guilherme.concursos.domain.conteudo.Conteudo;
 import com.guilherme.concursos.services.ConcursoService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,12 @@ public class ConcursoController {
 
       private final ConcursoService concursoService;
 
-      @GetMapping("/")
-      public ResponseEntity<List<Cargo>> getDadosConcurso() {
-            List<Cargo> dadosConcurso = concursoService.getDadosConcurso();
+      // Arrumar esse método. São todos os cargos de apenas um concurso.
+      @GetMapping("/cargos")
+      public ResponseEntity<List<Cargo>> getCargos() {
+            List<Cargo> cargos = concursoService.getCargos();
 
-            return ResponseEntity.ok().body(dadosConcurso);
+            return ResponseEntity.ok().body(cargos);
       }
 
       @PostMapping("/{concursoId}/cargo")
@@ -45,6 +47,20 @@ public class ConcursoController {
             String id = concursoService.createAvaliacao(body, cargoId);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(id);
+      }
+
+      @PostMapping("/cargo/avaliacao/{avaliacaoId}/conteudo")
+      public ResponseEntity<String> createConteudo(@RequestBody Conteudo body, @PathVariable String avaliacaoId) {
+            String id = concursoService.createConteudo(body, avaliacaoId);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(id);
+      }
+
+      @GetMapping("cargo/{cargoId}/avaliacoes")
+      public ResponseEntity<List<Avaliacao>> getAvaliacoesAndConteudos(@PathVariable String cargoId) {
+            List<Avaliacao> avaliacoes = concursoService.getAvaliacoes(cargoId);
+
+            return ResponseEntity.ok().body(avaliacoes);
       }
 
 }

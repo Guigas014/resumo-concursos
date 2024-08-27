@@ -2,6 +2,7 @@ package com.guilherme.concursos.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class ConcursosController {
             List<String> concursosId = concursosService.createConcursos();
             // concursoService.createConcursos(body);
 
-            return ResponseEntity.ok().body(concursosId);
+            return ResponseEntity.status(HttpStatus.CREATED).body(concursosId);
       }
 
       @GetMapping("/")
