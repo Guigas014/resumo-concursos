@@ -22,13 +22,25 @@ public class ConcursosService {
       // public List<String> createConcursos(ConcursoRequestDTO concursoDTO) {
       public List<String> createConcursos() {
 
-            // Testa se existe dados da tabela concurso, se positivo apaga todos.
+            // Testa se existe dados na tabela concurso, se positivo apaga todos.
             var concurosExistentes = this.concursoRepository.findAll();
             if (concurosExistentes.stream().count() > 0) {
                   this.concursoRepository.deleteAll();
             }
 
+            // DADOS VINDOS DO WEB SCRAPPING
             List<List<String>> dataConcursos = scrappingData.getConcursosData();
+
+            // Para cada concurso do web scrapping, é feito um teste comparando o nome e o
+            // ano, para ver se o concurso já existe no DB. Se já existir nada a fazer,
+            // se não inserir o concurso em uma lista para ser salvo no DB.
+            // var concurosExistentes = this.concursoRepository.findAll();
+
+            // List<Concurso> novosConcursos = dataConcursos.stream().map(item -> {
+            // if (item.get(0).equals(concurosExistentes.get(0).getNome())) {
+
+            // }
+            // }).toList();
 
             // EXEMPLO DE TRATAMENTO DE ERRO.
             // if (dataConcursos == null) {

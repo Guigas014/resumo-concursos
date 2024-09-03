@@ -49,11 +49,11 @@ public class ConcursoService {
             }
 
             List<CargoResponseDTO> cargosDTO = cargos.stream().map(item -> {
-                  CargoResponseDTO cargoDTO = new CargoResponseDTO(item.getId(), item.getNome(), item.getNivel(),
+                  return new CargoResponseDTO(item.getId(), item.getNome(), item.getNivel(),
                               item.getCadastroReserva(), item.getQuantidadeVagas(), item.getTaxaInscricao(),
                               item.getSalario(), concurso.get().getNome(), concurso.get().getFimInscricao());
 
-                  return cargoDTO;
+                  // return cargoDTO;
             }).toList();
 
             return cargosDTO;
@@ -154,14 +154,14 @@ public class ConcursoService {
             List<AvaliacaoResponseDTO> avaliacoesDTO = avaliacoes.stream().map(item -> {
                   ConteudoResponseDTO conteudo = this.getConteudo(item.getId());
 
-                  AvaliacaoResponseDTO avaliacaoDTO = new AvaliacaoResponseDTO(item.getCargo().getConcurso().getNome(),
+                  return new AvaliacaoResponseDTO(item.getCargo().getConcurso().getNome(),
                               item.getCargo().getNome(),
                               new AvaliacaoDetailsDTO(item.getId(), item.getTipo(), item.getCarater(),
                                           item.getPontuacao(), item.getDataProva(), item.getDuracao(),
                                           item.getQuantidadeQuestoes()),
                               conteudo);
 
-                  return avaliacaoDTO;
+                  // return avaliacaoDTO;
             }).toList();
 
             return avaliacoesDTO;
@@ -178,12 +178,12 @@ public class ConcursoService {
             }
 
             List<ConteudoResponseDTO> conteudoDTO = conteudo.stream().map(item -> {
-                  ConteudoResponseDTO newConteudo = new ConteudoResponseDTO(item.isPortugues(), item.isMatematica(),
+                  return new ConteudoResponseDTO(item.isPortugues(), item.isMatematica(),
                               item.isInformatica(), item.isRaciocinio_logico(), item.isIngles(), item.isEtica(),
                               item.isAtualidades(), item.isDireito_administrativo(), item.isDireito_constitucional(),
                               item.isEspecifico(), item.getOutros());
 
-                  return newConteudo;
+                  // return newConteudo;
             }).toList();
 
             return conteudoDTO.get(0);
