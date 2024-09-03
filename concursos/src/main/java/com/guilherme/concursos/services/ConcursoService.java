@@ -43,6 +43,11 @@ public class ConcursoService {
 
             List<Cargo> cargos = this.cargoRepository.findByConcursoId(concursoId);
 
+            // PENSAR SE ARRUMO OU DESISTO DESSE TRATAMENTO DE ERRO
+            if (cargos.isEmpty()) {
+                  System.out.println("Nenhum cargo cadastrado!");
+            }
+
             List<CargoResponseDTO> cargosDTO = cargos.stream().map(item -> {
                   CargoResponseDTO cargoDTO = new CargoResponseDTO(item.getId(), item.getNome(), item.getNivel(),
                               item.getCadastroReserva(), item.getQuantidadeVagas(), item.getTaxaInscricao(),
