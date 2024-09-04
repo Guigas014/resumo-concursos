@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  text-align: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 15vh;
+}
+
+p {
+  height: auto;
+  font-family: "Revalia", sans-serif;
+  font-weight: 400;
+  font-size: 50px;
+  font-style: normal;
+
+  color: #ffffff;
+}

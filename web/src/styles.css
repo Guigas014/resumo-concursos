@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+
+  width: 100vw;
+  height: 100vh;
+}
+
+:root {
+  --primary-color: #0587ff;
+  --second-color: #0910ac;
+  --gray: #d9d9d9;
+  --border-color: #0109d4;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: "Roboto", sans-serif;
+  background-image: linear-gradient(
+    to bottom,
+    var(--primary-color) 26%,
+    var(--second-color)
+  );
+}
