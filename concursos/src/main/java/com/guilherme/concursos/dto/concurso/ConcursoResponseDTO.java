@@ -5,7 +5,7 @@ public record ConcursoResponseDTO(
             String nome,
             String banca,
             Integer ano,
-            String inicoInscricao,
+            String inicioInscricao,
             String fimInscricao,
             String link) {
 }

@@ -1,11 +1,8 @@
 package com.guilherme.concursos.dto.concurso;
 
-public record ConcursoRequestDTO(
+public record ConcursoScrappingResponseDTO(
             String nome,
-            String banca,
-            Integer ano,
-            String inicioInscricao,
+            String ano,
             String fimInscricao,
             String link) {
-
 }

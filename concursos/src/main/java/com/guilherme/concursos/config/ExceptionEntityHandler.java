@@ -13,9 +13,8 @@ import com.guilherme.concursos.domain.conteudo.exceptions.ConteudoNotFoundExcept
 @ControllerAdvice
 public class ExceptionEntityHandler {
 
-      @SuppressWarnings("rawtypes")
       @ExceptionHandler(WebDriverException.class)
-      public ResponseEntity handleDataNotFound(WebDriverException e) {
+      public ResponseEntity<String> handleDataNotFound(WebDriverException e) {
             return ResponseEntity.notFound().build();
       }
 
