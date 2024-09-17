@@ -17,8 +17,39 @@ p {
   color: #ffffff;
 }
 
-@media screen and (max-width: 600px) {
+.navigation {
+  all: unset;
+
+  display: block;
+  position: absolute;
+  top: 3rem;
+  right: 6rem;
+  /* transform: rotate(180deg); */
+
+  width: 5vw;
+  height: 5vw;
+
+  cursor: pointer;
+}
+
+img {
+  width: 5vw;
+  height: 5vw;
+}
+
+@media screen and (max-width: 800px) {
   p {
     font-size: 30px;
+  }
+
+  .navigation {
+    top: 2.5rem;
+    right: 3rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .navigation {
+    display: none;
   }
 }
