@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import {
   trigger,
@@ -6,7 +6,6 @@ import {
   style,
   animate,
   transition,
-  keyframes,
 } from '@angular/animations';
 
 @Component({
@@ -41,7 +40,14 @@ export class HeaderComponent {
 
   isPage1 = true;
 
+  // Funciona como o useState do REACT
+  inputIsPage1 = output<boolean>();
+  setNewPageState(state: boolean) {
+    this.inputIsPage1.emit(state);
+  }
+
   toggleArrow() {
     this.isPage1 = !this.isPage1;
+    this.setNewPageState(this.isPage1);
   }
 }
