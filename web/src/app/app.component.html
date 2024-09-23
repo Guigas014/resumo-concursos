@@ -1,9 +1,46 @@
 <app-header (inputIsPage1)="teste($event)" />
 
 <div class="container">
-      <div class="abertos" [@changeConcursos]="page1 ? 'abertos' : 'analisados'">{{ page1 }}</div>
-      <div class="analisados" [@changeConcursos]="page1 ? 'analisados' : 'abertos'">
+      <div class="abertos" [@changeConcursos]="page1 ? 'abertos' : 'analisados'">
+
+            <div class="card">
+                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
+
+                  <p class="title">FUB</p>
+                  <p>2016</p>
+                  <p class="banca">CEBRASPE</p>
+                  <p>Inscrição até: 03/10</p>
+
+                  <button>EDITAR</button>
+
+                  <a [href]="">Mais informações</a>
+            </div>
             <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+
+      </div>
+
+      <!-- <div class="analisados" [@changeConcursos]="page1 ? 'analisados' : 'abertos'"> -->
+      <div class="analisados" [@changeConcursos]="page1 ? 'abertos' : 'analisados'">
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
+            TESTE
       </div>
 </div>
 

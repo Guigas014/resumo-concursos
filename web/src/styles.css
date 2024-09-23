@@ -19,10 +19,19 @@ body {
   flex-direction: column;
   align-items: center;
 
-  font-family: "Roboto", sans-serif;
   background-image: linear-gradient(
     to bottom,
     var(--primary-color) 26%,
     var(--second-color)
   );
+  background-attachment: fixed;
+
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: auto;
+  letter-spacing: 2%;
+  color: white;
+
+  overflow-x: hidden;
 }
