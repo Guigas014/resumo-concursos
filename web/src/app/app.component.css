@@ -25,7 +25,7 @@
 }
 
 .analisados {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 20vw;
@@ -34,4 +34,15 @@
   height: 100%;
 
   border: 2px solid #0000ff;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20%;
+  height: 60%;
+
+  background-color: aqua;
 }

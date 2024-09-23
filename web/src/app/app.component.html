@@ -2,7 +2,9 @@
 
 <div class="container">
       <div class="abertos" [@changeConcursos]="page1 ? 'abertos' : 'analisados'">{{ page1 }}</div>
-      <div class="analisados" [@changeConcursos]="page1 ? 'analisados' : 'abertos'">{{ !page1 }}</div>
+      <div class="analisados" [@changeConcursos]="page1 ? 'analisados' : 'abertos'">
+            <div class="card"></div>
+      </div>
 </div>
 
 <router-outlet />

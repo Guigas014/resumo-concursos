@@ -21,16 +21,20 @@ import {
       state(
         'abertos',
         style({
-          display: 'flex',
+          // display: 'flex',
+          width: '100%',
+          height: '100%',
         })
       ),
       state(
         'analisados',
         style({
-          display: 'none',
+          // display: 'none',
+          width: '0%',
+          height: '0%',
         })
       ),
-      transition('abertos <=> analisados', [animate('3s ease-in-out')]),
+      transition('abertos <=> analisados', [animate('2s ease-in-out')]),
       // transition('analisados => abertos', [animate('2s ease-in-out')]),
     ]),
   ],
