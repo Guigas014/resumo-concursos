@@ -22,8 +22,12 @@
   width: 45%;
   height: 100%;
 
-  border: 2px solid #00ff00;
+  /* border: 2px solid #00ff00; */
   /* translate: -122%; */
+}
+
+.titleAnalisados {
+  display: none;
 }
 
 .analisados {
@@ -36,7 +40,7 @@
   width: 45%;
   height: 100%;
 
-  border: 2px solid #0000ff;
+  /* border: 2px solid #0000ff; */
   /* translate: 122%; */
 }
 
@@ -126,9 +130,26 @@ a:hover {
 
   .abertos {
     width: 100vw;
+    padding-bottom: 15%;
+  }
+
+  .titleAnalisados {
+    display: flex;
+    text-align: center;
+    padding-bottom: 1rem;
+    width: 100vw;
+    height: 10%;
+  }
+
+  h3 {
+    height: 100%;
+    letter-spacing: 1px;
+
+    font-weight: 400;
   }
 
   .analisados {
     width: 100vw;
+    padding-bottom: 15%;
   }
 }
