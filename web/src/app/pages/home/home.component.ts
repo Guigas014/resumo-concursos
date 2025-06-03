@@ -47,7 +47,17 @@ export class HomeComponent {
   page1 = true;
   imageSelo = 'assets/images/selo.png';
 
+  data = [];
+
   movePage(status: boolean) {
     this.page1 = status;
   }
+
+  // showEmptyMessage() {
+  //   if (this.data === null) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }

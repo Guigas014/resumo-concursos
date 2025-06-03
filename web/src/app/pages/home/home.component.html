@@ -11,7 +11,9 @@
                   <p class="banca">CEBRASPE</p>
                   <p>Inscrição até: 03/10</p>
 
-                  <button>EDITAR</button>
+                  <div class="button-container">
+                        <button routerLink="/formulario">EDITAR</button>
+                  </div>
 
                   <a routerLink="/cargos">Mais informações</a>
             </div>
@@ -23,9 +25,11 @@
                   <p class="banca">CEBRASPE</p>
                   <p>Inscrição até: 03/10</p>
 
-                  <button>EDITAR</button>
+                  <div class="button-container">
+                        <button routerLink="/formulario">EDITAR</button>
+                  </div>
 
-                  <a [href]="">Mais informações</a>
+                  <a routerLink="/cargos">Mais informações</a>
             </div>
             <div class="card">
                   <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
@@ -35,70 +39,13 @@
                   <p class="banca">CEBRASPE</p>
                   <p>Inscrição até: 03/10</p>
 
-                  <button>EDITAR</button>
+                  <div class="button-container">
+                        <button routerLink="/formulario">EDITAR</button>
+                  </div>
 
-                  <a [href]="">Mais informações</a>
+                  <a routerLink="/cargos">Mais informações</a>
             </div>
-            <div class="card">
-                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
 
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
-
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
-
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
-
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
-
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
 
 
       </div>
@@ -109,15 +56,26 @@
       </div>
 
       <div class="analisados" [@changeConcursos]="page1 ? 'abertos' : 'analisados'">
+
+            @if (data == null) {
+            <div class="empty-message">
+                  Ainda não existem concursos analisados.
+                  Selecione um concurso NOVO, leia o edital
+                  e clique em "EDITAR"!!
+            </div>
+
+            } @else {
             <div class="card">
                   <p class="title">FUB</p>
                   <p>2016</p>
                   <p class="banca">CEBRASPE</p>
                   <p>Inscrição até: 03/10</p>
 
-                  <button>EDITAR</button>
+                  <div class="button-container">
+                        <button routerLink="/avaliacao">DETALHES</button>
+                  </div>
 
-                  <a [href]="">Mais informações</a>
+                  <a routerLink="/cargos">Mais informações</a>
             </div>
             <div class="card">
                   <p class="title">FUB</p>
@@ -125,69 +83,14 @@
                   <p class="banca">CEBRASPE</p>
                   <p>Inscrição até: 03/10</p>
 
-                  <button>EDITAR</button>
+                  <div class="button-container">
+                        <button routerLink="/avaliacao">DETALHES</button>
+                  </div>
 
-                  <a [href]="">Mais informações</a>
+                  <a routerLink="/cargos">Mais informações</a>
             </div>
-            <div class="card">
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
+            }
 
-                  <button>EDITAR</button>
 
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
-            <div class="card">
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <button>EDITAR</button>
-
-                  <a [href]="">Mais informações</a>
-            </div>
       </div>
 </div>
