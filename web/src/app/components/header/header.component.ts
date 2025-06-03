@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import {
   trigger,
@@ -38,6 +38,8 @@ import {
 export class HeaderComponent {
   arrow = 'assets/images/arrow.png';
 
+  lastUrl: string = document.location.href.split('/')[3];
+
   isPage1 = true;
 
   // Funciona como o useState do REACT
@@ -49,5 +51,9 @@ export class HeaderComponent {
   toggleArrow() {
     this.isPage1 = !this.isPage1;
     this.setNewPageState(this.isPage1);
+  }
+
+  ngOnInit() {
+    console.log(this.lastUrl);
   }
 }

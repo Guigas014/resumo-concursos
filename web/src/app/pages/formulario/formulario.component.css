@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10%;
+
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  padding-inline: 4%;
+
+  /* border: 2px solid #ff0000; */
+}

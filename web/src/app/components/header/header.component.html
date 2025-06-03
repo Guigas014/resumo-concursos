@@ -1,7 +1,10 @@
 <div class="container">
       <p>ConcurseirOS</p>
 
+      @if (lastUrl == "home") {
       <button class="navigation" [@changeArrow]="isPage1 ? 'page1' : 'page2'" (click)="toggleArrow()">
             <img [ngSrc]="arrow" width="90" height="90" alt="Seta" />
       </button>
+      }
+
 </div>
