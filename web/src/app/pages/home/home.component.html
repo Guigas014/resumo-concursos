@@ -3,49 +3,36 @@
 <div class="container">
       <div class="abertos" [@changeConcursos]="page1 ? 'abertos' : 'analisados'">
 
+            @for (concurso of concursos; track $index) {
+            <div class="card">
+                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
+
+                  <p class="title">{{ concurso.nome.slice(0, 15) }}</p>
+                  <p>{{ concurso.ano }}</p>
+                  <p>Inscrição até: {{ concurso.fimInscricao }}</p>
+
+                  <div class="button-container">
+                        <button routerLink="/formulario/{{ concurso.dataEncoded }}"
+                              routerLinkActive="active">EDITAR</button>
+                  </div>
+
+                  <a [href]="concurso.link">Mais informações</a>
+            </div>
+            }
+
             <div class="card">
                   <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
 
                   <p class="title">FUB</p>
                   <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
                   <p>Inscrição até: 03/10</p>
 
                   <div class="button-container">
-                        <button routerLink="/formulario">EDITAR</button>
+                        <button routerLink="/formulario/{{ dataEncoded }}" routerLinkActive="active">EDITAR</button>
                   </div>
 
-                  <a routerLink="/cargos">Mais informações</a>
+                  <a [href]="concurso.link">Mais informações</a>
             </div>
-            <div class="card">
-                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
-
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <div class="button-container">
-                        <button routerLink="/formulario">EDITAR</button>
-                  </div>
-
-                  <a routerLink="/cargos">Mais informações</a>
-            </div>
-            <div class="card">
-                  <img [src]="imageSelo" width="auto" height="auto" alt="selo" />
-
-                  <p class="title">FUB</p>
-                  <p>2016</p>
-                  <p class="banca">CEBRASPE</p>
-                  <p>Inscrição até: 03/10</p>
-
-                  <div class="button-container">
-                        <button routerLink="/formulario">EDITAR</button>
-                  </div>
-
-                  <a routerLink="/cargos">Mais informações</a>
-            </div>
-
 
 
       </div>
@@ -72,10 +59,10 @@
                   <p>Inscrição até: 03/10</p>
 
                   <div class="button-container">
-                        <button routerLink="/avaliacao">DETALHES</button>
+                        <button routerLink="/cargos">DETALHES</button>
                   </div>
 
-                  <a routerLink="/cargos">Mais informações</a>
+                  <a [href]="data[0].url">Mais informações</a>
             </div>
             <div class="card">
                   <p class="title">FUB</p>
@@ -84,10 +71,10 @@
                   <p>Inscrição até: 03/10</p>
 
                   <div class="button-container">
-                        <button routerLink="/avaliacao">DETALHES</button>
+                        <button routerLink="/cargos">DETALHES</button>
                   </div>
 
-                  <a routerLink="/cargos">Mais informações</a>
+                  <a [href]="data[0].url">Mais informações</a>
             </div>
             }
 

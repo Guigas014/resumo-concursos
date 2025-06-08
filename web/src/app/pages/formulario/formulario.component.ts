@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
+import { Concurso } from '../../types/concurso';
 
 @Component({
   selector: 'app-formulario',
@@ -9,4 +10,15 @@ import { HeaderComponent } from '../../components/header/header.component';
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.css',
 })
-export class FormularioComponent {}
+export class FormularioComponent {
+  newData: string | null = '';
+  concurso: Concurso | null = null;
+
+  @Input()
+  set data(data: string) {
+    if (data) {
+      this.concurso = JSON.parse(decodeURIComponent(data));
+      console.log('Data:', this.concurso?.nome);
+    }
+  }
+}

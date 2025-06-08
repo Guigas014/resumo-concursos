@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import {
@@ -10,10 +11,13 @@ import {
   trigger,
 } from '@angular/animations';
 
+import { Concurso } from '../../types/concurso';
+import { feed } from '../../../utils/feed';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, RouterLink],
+  imports: [HeaderComponent, RouterLink, RouterLinkActive],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   animations: [
@@ -47,7 +51,35 @@ export class HomeComponent {
   page1 = true;
   imageSelo = 'assets/images/selo.png';
 
-  data = [];
+  httpParams = new HttpParams();
+
+  // O feed é importado de utils/feed.ts e é criado uma propriedade com todos os dados serializados (dataEncoded).
+  concursos: Concurso[] = feed.map((item) => {
+    return {
+      nome: item.nome,
+      ano: item.ano,
+      fimInscricao: item.fimInscricao,
+      link: item.link,
+      dataEncoded: encodeURIComponent(JSON.stringify(item)),
+    };
+  });
+
+  concurso: Concurso = {
+    nome: 'FUB',
+    ano: '2016',
+    inicioInscricao: new Date('2016-10-03'),
+    link: 'https://www.pciconcursos.com.br/noticias/fub-df-promove-concurso-publico-com-273-vagas',
+  };
+
+  // O objeto concurso é serializado para ser enviado como string na URL
+  dataEncoded = encodeURIComponent(JSON.stringify(this.concurso));
+
+  data = [
+    {
+      id: 1,
+      url: 'https://www.pciconcursos.com.br/noticias/fub-df-promove-concurso-publico-com-273-vagas',
+    },
+  ];
 
   movePage(status: boolean) {
     this.page1 = status;

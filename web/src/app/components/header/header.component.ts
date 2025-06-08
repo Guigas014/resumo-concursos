@@ -54,6 +54,6 @@ export class HeaderComponent {
   }
 
   ngOnInit() {
-    console.log(this.lastUrl);
+    // console.log(this.lastUrl);
   }
 }

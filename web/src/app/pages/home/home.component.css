@@ -84,8 +84,10 @@ img {
 }
 
 .title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 500;
+  width: 6rem;
+  padding-bottom: 5px;
 }
 
 .banca {
