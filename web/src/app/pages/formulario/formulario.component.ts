@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { Concurso } from '../../types/concurso';
@@ -6,19 +12,76 @@ import { Concurso } from '../../types/concurso';
 @Component({
   selector: 'app-formulario',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, ReactiveFormsModule],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.css',
 })
 export class FormularioComponent {
+  // Injeção de dependências
+  private formBuilder = inject(FormBuilder);
+
+  // Atributtes
   newData: string | null = '';
   concurso: Concurso | null = null;
 
+  // Pega o paramêtro 'data' da URL e decodifica
   @Input()
   set data(data: string) {
     if (data) {
       this.concurso = JSON.parse(decodeURIComponent(data));
-      console.log('Data:', this.concurso?.nome);
+      console.log('Data:', this.concurso);
     }
+  }
+
+  // Formulário reativo sem FormBuilder
+  // mainForm = new FormGroup({
+  //   concurso: new FormGroup({
+  //     name: new FormControl(''),
+  //     ano: new FormControl(''),
+  //   }),
+  //   cargo: new FormGroup({
+  //     title: new FormControl(''),
+  //     nivel: new FormControl(''),
+  //   }),
+  // });
+
+  // Formulário reativo com FormBuilder
+  mainForm = this.formBuilder.group({
+    concurso: this.formBuilder.group({
+      banca: [''],
+      inicioInscricao: [''],
+    }),
+    cargo: this.formBuilder.group({
+      nome: [''],
+      nivel: [''],
+      salario: ['R$'],
+      inscricao: [''],
+      vagas: [''],
+    }),
+    avaliacao: this.formBuilder.group({
+      tipo: [''],
+      carater: [''],
+      data: [''],
+      duracao: [''],
+      questoes: [''],
+      pontuacao: [''],
+    }),
+    conteudo: this.formBuilder.group({
+      portugues: [false],
+      matematica: [false],
+      informatica: [false],
+      raciocinioLogico: [false],
+      ingles: [false],
+      etica: [false],
+      atualidades: [false],
+      direitoAdministrativo: [false],
+      direitoConstitucional: [false],
+      especificas: [false],
+      outros: [''],
+    }),
+  });
+
+  onSubmit() {
+    console.log('Formulário enviado:', this.mainForm.value);
   }
 }

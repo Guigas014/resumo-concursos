@@ -1,5 +1,97 @@
 <app-header />
 
 <div class="container">
-      <p>formulario works!</p>
+      <!-- Vou fazer esse formulário de outra maneira  -->
+      <!-- <form (submit)="onSubmit(dataForm)" #dataForm="ngForm"></form> -->
+
+      <!-- Só com o FormControl -->
+      <!-- <input type="text" id="name" [formControl]="name" /> -->
+      <!-- <p>Nome: {{ name.value }}</p> -->
+
+      <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+            <div class="form__content">
+                  <div class="content__col">
+                        <div class="group" formGroupName="concurso">
+                              <h3>{{ concurso?.nome}}</h3>
+
+                              <label for="banca">Banca</label>
+                              <input type="text" id="banca" formControlName="banca" />
+
+                              <label for="inicioInscricao">Início da inscrição</label>
+                              <input type="text" id="inicioInscricao" formControlName="inicioInscricao" />
+                        </div>
+
+                        <div class="group" formGroupName="cargo">
+                              <h3>Cargo</h3>
+
+                              <label for="nome">Nome</label>
+                              <input type="text" id="nome" formControlName="nome" />
+
+                              <label for="nivel">Nível</label>
+                              <input type="text" id="nivel" formControlName="nivel" />
+
+                              <label for="salario">Salário</label>
+                              <input type="text" id="salario" formControlName="salario" />
+
+                              <label for="inscricao">Inscrição</label>
+                              <input type="text" id="inscricao" formControlName="inscricao" />
+
+                              <label for="vagas">Vagas</label>
+                              <input type="text" id="vagas" formControlName="vagas" />
+                        </div>
+                  </div>
+
+                  <div class="content__col">
+                        <div class="group" formGroupName="avaliacao">
+                              <h3>Avaliação</h3>
+
+                              <label for="tipo">Tipo</label>
+                              <input type="text" id="tipo" formControlName="tipo" />
+
+                              <label for="carater">Carater</label>
+                              <input type="text" id="carater" formControlName="carater" />
+
+                              <label for="data">Data</label>
+                              <input type="text" id="data" formControlName="data" />
+
+                              <label for="duracao">Duração</label>
+                              <input type="text" id="duracao" formControlName="duracao" />
+
+                              <label for="questoes">Questões</label>
+                              <input type="text" id="questoes" formControlName="questoes" />
+
+                              <label for="pontuacao">Pontuação</label>
+                              <input type="text" id="pontuacao" formControlName="pontuacao" />
+                        </div>
+                  </div>
+
+                  <div class="content__col">
+                        <div class="group" formGroupName="conteudo">
+                              <h3>Conteúdo</h3>
+
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="portugues" formControlName="portugues" />
+
+                                    <label for="portugues">Português</label>
+                              </div>
+
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="matematica" formControlName="matematica" />
+
+                                    <label for="matematica">Matemática</label>
+                              </div>
+
+                              <label for="outros">Outros</label>
+                              <input type="text" id="outros" formControlName="outros" />
+                        </div>
+                  </div>
+            </div>
+
+            <div class="form__actions">
+                  <button type="submit" [disabled]="!mainForm.valid">Salvar</button>
+            </div>
+
+
+
+      </form>
 </div>
