@@ -15,10 +15,17 @@
                               <h3>{{ concurso?.nome}}</h3>
 
                               <label for="banca">Banca</label>
-                              <input type="text" id="banca" formControlName="banca" />
+                              <select id="banca" formControlName="banca">
+                                    <option value="" disabled selected>Selecione uma opção</option>
+
+                                    @for(banca of bancas; track $index ) {
+                                    <option [value]="banca">{{ banca }}</option>
+                                    }
+                              </select>
 
                               <label for="inicioInscricao">Início da inscrição</label>
-                              <input type="text" id="inicioInscricao" formControlName="inicioInscricao" />
+                              <input type="text" id="inicioInscricao" formControlName="inicioInscricao"
+                                    mask="d0/M0/0000" />
                         </div>
 
                         <div class="group" formGroupName="cargo">
@@ -28,16 +35,30 @@
                               <input type="text" id="nome" formControlName="nome" />
 
                               <label for="nivel">Nível</label>
-                              <input type="text" id="nivel" formControlName="nivel" />
+                              <select id="nivel" formControlName="nivel">
+                                    <option value="" disabled selected>Selecione uma opção</option>
+
+                                    @for(nivel of niveis; track $index ) {
+                                    <option [value]="nivel">{{ nivel }}</option>
+                                    }
+                              </select>
+
 
                               <label for="salario">Salário</label>
-                              <input type="text" id="salario" formControlName="salario" />
+                              <input type="text" id="salario" formControlName="salario" prefix="R$ " mask="separator.2"
+                                    thousandSeparator="." decimalMarker="," />
 
                               <label for="inscricao">Inscrição</label>
-                              <input type="text" id="inscricao" formControlName="inscricao" />
+                              <input type="text" id="inscricao" formControlName="inscricao" prefix="R$ "
+                                    mask="separator.2" thousandSeparator="." decimalMarker="." />
 
                               <label for="vagas">Vagas</label>
                               <input type="text" id="vagas" formControlName="vagas" />
+
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="cadastroReserva" formControlName="cadastroReserva" />
+                                    <label for="cadastroReserva">Cadastro Reserva</label>
+                              </div>
                         </div>
                   </div>
 
@@ -46,18 +67,31 @@
                               <h3>Avaliação</h3>
 
                               <label for="tipo">Tipo</label>
-                              <input type="text" id="tipo" formControlName="tipo" />
+                              <select id="tipo" formControlName="tipo">
+                                    <option value="" disabled selected>Selecione uma opção</option>
+
+                                    @for(tipo of tipos; track $index ) {
+                                    <option [value]="tipo">{{ tipo }}</option>
+                                    }
+                              </select>
 
                               <label for="carater">Carater</label>
-                              <input type="text" id="carater" formControlName="carater" />
+                              <select id="carater" formControlName="carater">
+                                    <option value="" disabled selected>Selecione uma opção</option>
+
+                                    @for(carater of carateres; track $index ) {
+                                    <option [value]="carater">{{ carater }}</option>
+                                    }
+                              </select>
 
                               <label for="data">Data</label>
-                              <input type="text" id="data" formControlName="data" />
+                              <input type="text" id="data" formControlName="data" mask="d0/M0/0000" />
 
                               <label for="duracao">Duração</label>
-                              <input type="text" id="duracao" formControlName="duracao" />
+                              <input type="text" id="duracao" formControlName="duracao" mask="Hh:m0"
+                                    [showMaskTyped]="true" />
 
-                              <label for="questoes">Questões</label>
+                              <label for="questoes">Qunatidade de Questões</label>
                               <input type="text" id="questoes" formControlName="questoes" />
 
                               <label for="pontuacao">Pontuação</label>
@@ -79,6 +113,48 @@
                                     <input type="checkbox" id="matematica" formControlName="matematica" />
 
                                     <label for="matematica">Matemática</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="informatica" formControlName="informatica" />
+
+                                    <label for="informatica">Informática</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="raciocinioLogico" formControlName="raciocinioLogico" />
+
+                                    <label for="raciocinioLogico">Raciocínio Lógico</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="ingles" formControlName="ingles" />
+
+                                    <label for="ingles">Inglês</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="etica" formControlName="etica" />
+
+                                    <label for="etica">Ética</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="atualidades" formControlName="atualidades" />
+
+                                    <label for="atualidades">Atualidades</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="direitoAdministrativo"
+                                          formControlName="direitoAdministrativo" />
+
+                                    <label for="direitoAdministrativo">Direito Administrativo</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="direitoConstitucional"
+                                          formControlName="direitoConstitucional" />
+
+                                    <label for="direitoConstitucional">Direito Constitucional</label>
+                              </div>
+                              <div class="container__checkbox">
+                                    <input type="checkbox" id="especificas" formControlName="especificas" />
+
+                                    <label for="especificas">Específicas</label>
                               </div>
 
                               <label for="outros">Outros</label>

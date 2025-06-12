@@ -1,18 +1,16 @@
 import { Component, inject, Input } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { Concurso } from '../../types/concurso';
 
+import { lists } from '../../../utils/lists';
+
 @Component({
   selector: 'app-formulario',
   standalone: true,
-  imports: [HeaderComponent, ReactiveFormsModule],
+  imports: [HeaderComponent, ReactiveFormsModule, NgxMaskDirective],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.css',
 })
@@ -23,6 +21,11 @@ export class FormularioComponent {
   // Atributtes
   newData: string | null = '';
   concurso: Concurso | null = null;
+  bancas: string[] = lists.bancas;
+  niveis: string[] = lists.niveis;
+  tipos: string[] = lists.tipos;
+  carateres: string[] = lists.carateres;
+  conteudos: string[] = lists.conteudos;
 
   // Pega o paramêtro 'data' da URL e decodifica
   @Input()
@@ -54,7 +57,8 @@ export class FormularioComponent {
     cargo: this.formBuilder.group({
       nome: [''],
       nivel: [''],
-      salario: ['R$'],
+      cadastroReserva: [false],
+      salario: [''],
       inscricao: [''],
       vagas: [''],
     }),

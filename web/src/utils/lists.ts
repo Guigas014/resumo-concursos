@@ -1,0 +1,25 @@
+export const lists = {
+  bancas: [
+    'Cebraspe',
+    'Cesgranrio',
+    'FCC',
+    'FGV',
+    'Iades',
+    'Instituto Quadrix',
+  ],
+  niveis: ['Básico', 'Intermediário'],
+  tipos: ['Objetiva', 'Objetiva e Discursiva'],
+  carateres: ['Classificatória', 'Classificatória e Eliminatória'],
+  conteudos: [
+    'portugues',
+    'matematica',
+    'informatica',
+    'raciocinioLogico',
+    'ingles',
+    'etica',
+    'atualidades',
+    'direitoAdministrativo',
+    'direitoConstitucional',
+    'especificas',
+  ],
+};
