@@ -1,11 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { Concurso } from '../../types/concurso';
 
-import { lists } from '../../../utils/lists';
+import { lists } from '../../utils/lists';
 
 @Component({
   selector: 'app-formulario',
@@ -21,6 +21,8 @@ export class FormularioComponent {
   // Atributtes
   newData: string | null = '';
   concurso: Concurso | null = null;
+
+  // Falso DB que vem da pasta utils
   bancas: string[] = lists.bancas;
   niveis: string[] = lists.niveis;
   tipos: string[] = lists.tipos;
@@ -55,7 +57,7 @@ export class FormularioComponent {
       inicioInscricao: [''],
     }),
     cargo: this.formBuilder.group({
-      nome: [''],
+      nome: ['', Validators.required],
       nivel: [''],
       cadastroReserva: [false],
       salario: [''],

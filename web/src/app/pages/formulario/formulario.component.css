@@ -130,9 +130,9 @@ option {
   font-weight: 400;
 }
 
-option::picker {
+/* option::highlight {
   background-color: red;
-}
+} */
 
 .container__checkbox {
   display: flex;
@@ -184,6 +184,12 @@ button {
 button:hover {
   background-color: var(--primary-color);
   color: var(--white);
+}
+
+button:disabled {
+  background-color: #d9d9d9ab;
+  color: darkslategray;
+  cursor: no-drop;
 }
 
 /* @media screen and (max-width: 300px) {

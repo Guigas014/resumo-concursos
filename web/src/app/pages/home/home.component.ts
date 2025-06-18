@@ -12,7 +12,7 @@ import {
 } from '@angular/animations';
 
 import { Concurso } from '../../types/concurso';
-import { feed } from '../../../utils/feed';
+import { feed } from '../../utils/feed';
 
 @Component({
   selector: 'app-home',
